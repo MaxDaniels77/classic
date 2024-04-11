@@ -25,7 +25,6 @@ En Frávega, entendemos la importancia de mantener tus documentos organizados y 
 2. **Sigue nuestro tutorial:** Completa nuestro tutorial paso a paso para aprender a utilizar todas las funciones de Frávega Docs de manera eficiente.
 3. **Sube tus archivos:** Una vez completado el tutorial, sube tus documentos a la plataforma para empezar a organizarlos y compartirlos.
 
-¡Empieza hoy mismo y lleva la gestión de documentos de tu empresa al siguiente nivel con Frávega Docs!
+¡Empieza hoy mismo y lleva la gestión de documentos de fravega al siguiente nivel con Frávega Docs!
 
 
-  
