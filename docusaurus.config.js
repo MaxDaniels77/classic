@@ -41,6 +41,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
+          exclude: ['**/docs/Advanced Analytics/_resources/**'],
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
