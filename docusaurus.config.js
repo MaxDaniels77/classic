@@ -136,7 +136,7 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Frávega,  Inc. Made By Daniel Arias using Docusaurus.`,
       },
       prism: {
-        theme: prismThemes.github,
+        theme: prismThemes.dracula,
         darkTheme: prismThemes.dracula,
       },
     }),
