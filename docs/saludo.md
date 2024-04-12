@@ -10,7 +10,7 @@ En Frávega, entendemos la importancia de mantener tus documentos organizados y 
 
 ## Características principales:
 
-- **Solicitar acceso al GitHub:** Obtén acceso al repositorio de GitHub de Frávega Docs para acceder a recursos adicionales, colaborar en el desarrollo y contribuir con mejoras a la plataforma.
+
 - **Almacenamiento seguro:** Tus documentos se guardan de forma segura en nuestros servidores protegidos, garantizando la confidencialidad y la integridad de tus datos.
 - **Acceso desde cualquier lugar:** Accede a tus documentos desde cualquier dispositivo con conexión a Internet, ya sea tu computadora de escritorio, laptop, tablet o teléfono móvil.
 - **Colaboración en tiempo real:** Colabora con tus colegas en tiempo real, editando documentos juntos y dejando comentarios para una comunicación fluida y efectiva.
@@ -24,6 +24,15 @@ En Frávega, entendemos la importancia de mantener tus documentos organizados y 
 1. **Solicita acceso al GitHub:** Si estás interesado en colaborar en el desarrollo de Frávega Docs o contribuir con mejoras, solicita acceso al repositorio de GitHub.
 2. **Sigue nuestro tutorial:** Completa nuestro tutorial paso a paso para aprender a utilizar todas las funciones de Frávega Docs de manera eficiente.
 3. **Sube tus archivos:** Una vez completado el tutorial, sube tus documentos a la plataforma para empezar a organizarlos y compartirlos.
+
+
+:::tip
+Para editar de manera comoda tus documentaciones puedes usar tu editor de markdown preferido, en lo personal recomendamos [Joplim](https://joplinapp.org/)
+ya que ademas permite sincronizar tus notas entre distintos dispositivos, aunque [obsidian](https://obsidian.md/) tambien es una buena opcion a considerar. En cualquiera de los casos puedes trabajar y exportar tus markdown de manera cómoda. 
+
+ :::
+
+
 
 ¡Empieza hoy mismo y lleva la gestión de documentos de Frávega al siguiente nivel con Frávega Docs!
 
