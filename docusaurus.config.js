@@ -25,6 +25,7 @@ const config = {
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  plugins: ["@orama/plugin-docusaurus-v3"],
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -87,6 +88,8 @@ const config = {
           },
         ],
       },
+
+      
       footer: {
         style: 'dark',
         links: [
