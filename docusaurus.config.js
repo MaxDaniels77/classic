@@ -25,7 +25,9 @@ const config = {
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  plugins: ["@orama/plugin-docusaurus-v3"],
+  // plugins: ["@orama/plugin-docusaurus-v3"],
+  // plugins: [require.resolve('docusaurus-lunr-search')],
+
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -64,6 +66,9 @@ const config = {
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+
+
+
     ({
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
@@ -71,7 +76,7 @@ const config = {
         title: 'Fravega Docs',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo_sin_fondo_3.png',
         },
         items: [
           {
@@ -140,11 +145,8 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     }),
+
 };
-// export default {
-//   title: 'Docusaurus',
-//   url: 'https://cheery-speculoos-89fa02.netlify.app/', // Url to your site with no trailing slash
-//   baseUrl: '/', // Base directory of your site relative to your repo
-//   // ...
-// };
+
+
 export default config;
