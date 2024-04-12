@@ -130,7 +130,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Frávega,  Inc. Made By Daniel Arias using Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
