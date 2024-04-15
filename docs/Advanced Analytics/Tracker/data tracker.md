@@ -133,18 +133,18 @@ Remanentes a ver:
 
 ### Conjunto 4: Sesiones por Landing Page
 
-- Sesiones_Landing_ACCIÓN : Tendremos una sesion landing por cada accion, por ejemplo, Sesiones_Landing_Producto, en este caso es un entero que en caso de que la sesion haya aterrizado en Producto, tendrá 1, caso contrario 0. 
+- **Sesiones_Landing_ACCIÓN** : Tendremos una sesion landing por cada accion, por ejemplo, Sesiones_Landing_Producto, en este caso es un entero que en caso de que la sesion haya aterrizado en Producto, tendrá 1, caso contrario 0. 
 
 ### Conjunto 5: Sesiones por Rebote
 
-- Sesiones_Rebote_ACCIÓN: En este caso, para cada una de las acciones en el primer paso, se mira si en el siguiente paso hubo o no una acción (si la persona abandonó la sesión) en caso de que la haya abandonado, se le pone un 1, caso contrario 0. 
+- **Sesiones_Rebote_ACCIÓN**: En este caso, para cada una de las acciones en el primer paso, se mira si en el siguiente paso hubo o no una acción (si la persona abandonó la sesión) en caso de que la haya abandonado, se le pone un 1, caso contrario 0. 
 
 
 - Landing_purchased
 
 ### Conjunto 6: Ordenes por Landing Page
 
-- Ordenes_Landing_ACCIÓN: Para cada una de las acciones, si el usuario aterrizó en alguna acción en particular, la columna Ordenes_Landing_ACCIÓN tendra 1 si el usuario realizo una orden y 0 en caso contrario. 
+- **Ordenes_Landing_ACCIÓN**: Para cada una de las acciones, si el usuario aterrizó en alguna acción en particular, la columna Ordenes_Landing_ACCIÓN tendra 1 si el usuario realizo una orden y 0 en caso contrario. 
 
 ### Conjunto 7: Métricas de Tiempo 
 
@@ -155,25 +155,25 @@ Remanentes a ver:
 
 
 ### Conjunto 8:  Páginas Visitadas
-- Paginas_Visitadas: 
 
-- Paginas_Visitadas_ACCIÓN: Muestra el total de paginas visitadas abierto por cada una de las acciones en el Paso1, caso contrario 0. 
+- **Paginas_Visitadas**: Total de paginas visitadas para cada `session_id`
+
+- **Paginas_Visitadas_ACCIÓN**: Muestra el total de paginas visitadas abierto por cada una de las acciones en el Paso1, caso contrario 0. 
 
 
 ### Conjunto 6: Otros
 
-- cookie_id
-- Cantidad_de_Add_to_Cart
-- Cantidad_de_Remove_to_Cart
-- Cantidad_de_Detail_View
-- Cantidad_de_Listados
-- Precio_Promedio_DetailView
+- **Cantidad_de_Add_to_Cart**: Para cada una de las sesiones, se busca la cantidad de  eventos`addToCart` que tuvo.
+- **Cantidad_de_Remove_to_Cart** : ara cada una de las sesiones, se busca la cantidad de  eventos`removeFromCart` que tuvo.
+- **Cantidad_de_Detail_View**:Para cada sesión se cuenta la cantidad de eventos `DetailView` que tuvo el cliente.
+- **Cantidad_de_Listados**: Se cuenta la cantidad de listados que miro el cliente para toda la sesión.
+- **Precio_Promedio_DetailView**: De todos los `detailView` que hizo el cliente, se releva su precio y se le calcula el promedio, mas claramente; es el promedio de los precios de los productos que el usuario miró.
 - Origen_Agrupado
-- Retiro_Inmediato
-- Envio_Gratis
-- Promesa_Entrega
-- Categoria_Ingreso
-- Categoria_Frecuente
-- Tipo_Trafico
+- **Retiro_Inmediato**: A renombrar, contiene la proporción dependiendo de si el usuario vio o no disponible alguno de los productos que vio para su retiro. Si de 3 productos a los que les hizo `detailView`, 2 estaban disponibles, seria 0.66. 
+- **Envio_Gratis**: A renombrar, analogo del caso anterior  pero con la disponibilidad de envio a domicilio.
+- **Promesa_Entrega**: A renombrar, contiene las labels con el tiempo de entrega estimado dada la ubicación del cliente.
+- **Categoria_Ingreso**: Primer categoria observada, en la mayoria de los casos es por donde el cliente entró al sitio web. 
+- **Categoria_Frecuente**: De todas las categorias que el cliente miró haciendo `DetailView`, se releva la mas frecuente. 
+- **Tipo_Trafico**:  Indica si es trafico orgánico o no.  1 para si 0 para no. 
 
-Espero que esta organización te sea útil para crear las descripciones que necesitas. Si hay algo más en lo que pueda ayudarte, ¡no dudes en decirlo!
+
