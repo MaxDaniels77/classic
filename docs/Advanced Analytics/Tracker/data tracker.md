@@ -73,6 +73,16 @@ Dicha libreria busca obtener de manera arbitraria un subset relevante para el an
 - Orders:
   - Solo se trae la data para contar cuantas ordenes hubieron  para cada session_id. 
 
+## Procesado de los datos
 
 
 
+
+
+
+## Mapeo de columas de salida
+Al dia de la fecha, el dataset de salida cuenta con 111 columnas, antes de ver sus definiciones, repasemos los eventos
+repasemos las definiciones de cada grupo de ellas por grupos a los que pertenecen, 
+
+
+- 

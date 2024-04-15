@@ -23,3 +23,8 @@ lorem ipsum
 -  **Ocupación** Estudiante universitario en Datos y Fisica
     -  **Intereses** Le gusta mucho  el deporte, practicar Kendo o leer un buen libro
     -  **Hábitat** Se encuentra en la planicie de Buenos aires
+
+``` python
+def quien_es(nombre):
+    return (print('Nachito'))
+```
