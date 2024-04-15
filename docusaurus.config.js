@@ -13,14 +13,14 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://fravedocusdev.netlify.app/',
-  // url: 'http://192.168.0.46:3000',
+  // url: 'https://fravedocusdev.netlify.app/',
+  url: 'http://192.168.0.46:3000',
 
 
 
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: 'https://fravedocusdev.netlify.app/',
+  baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
