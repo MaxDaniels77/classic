@@ -101,19 +101,17 @@ Al dia de la fecha, el dataset de salida cuenta con 111 columnas, antes de ver s
 
 
 A partir de éstas, en su mayoría obtenias de parsear las columnas `referrer` y `base_rl`,
-se generó el set de columnas finales, veamoslas por los grupos a los que pertenecen. 
+se generó el set de columnas finales, Éstas seran explicadas de acuerdo a su grupo de pertenencia. 
 
-Entendido, agruparé las columnas utilizando la estructura de separación por guiones bajos y, en los casos en que haya índices numéricos, los agruparé utilizando un índice general "i". Aquí está la lista modificada:
-
-### User info:
+### Conjunto 1: Información del usuario
 
 En este grupo tenemos la información perteneciente al usuario, en ella, los `session_id` y los `cookie_id`  son claves únicas para identificar ya sea la cookie del usuario, como su sesión (la cual expira a la media hora de no registrarse actividad).
 La única falencia de momento de esta clasificación es que no podemos saber si distintas cookies  son del mismo usuario o no lo son, ya que puede a priori conectarse de distintos dispositivos con distintas cookie_id. Dichas columnas son:
 
-- navigation_step_session_id
-- cookie_id
+- **navigation_step_session_id** : Id de sesión del usuario.
+- **cookie_id**: Id de tracker del usuario (se obtiene a partir de una cookie en el navegador web). 
 
-### Conjunto 1: Sesiones y Pasos de Navegación
+### Conjunto 2: Sesiones y Pasos de Navegación
 
 En cada una de estas columnas tendremos de manera ordenada, el camino que fue desarrollado el usuario en el sitio web de frávega. En el primer paso tendremos el lugar al que aterrizo el cliente, dicho lugar es generado a partir de la data procesada de `base_url` transformada en las "acciones" o "eventos" comentados previamente. Un detalle de suma importancia a destacar es que no se obtienen todos los pasos, sino un subconjunto de los primeros 15 pasos. 
 
@@ -121,86 +119,49 @@ En cada una de estas columnas tendremos de manera ordenada, el camino que fue de
 - **Sesiones_Pasoi**: Son todas las columnas con valores de i identicos a los pasos (del 1 al 15), que registran si en el paso i hubo actividad, en caso de que la haya colocan un 1, caso contrario un 0.
 - **Pasos_Totales** : *Consultar con Ari* Registra la cantidad de pasos dentro del set de 15 pasos que  se tiene definido para representar la actividad web. No es el total pero sirve a modo indicativo. (Viene heredado de las primeras versiones)
 
-### Conjunto 2: Conversiones y Sesiones por Producto:
+### Conjunto 3: Conversiones y Sesiones por Acción
 
 - **convirtio** : Es un flag que indica si el cliente realizo una orden dentro de la sesion en cuestión.
-- Sesiones_en_Producto
-- Sesiones_en_Listing
-- Sesiones_en_Home
-- Sesiones_en_Otro
-- Sesiones_en_Carrito
-- Sesiones_en_Login
-- Sesiones_en_MiCuenta
-- Sesiones_en_Order
-- Sesiones_en_Payment
-- Sesiones_en_Shipping
-- Sesiones_en_Email
+- **Sesiones_en_ACCIÓN** : En el caso de acción, tendremos una sesiones_en_  por cada accion, por ejemplo, sesiones_en_Producto. En este caso indica si el usuario pasó en algún momento por el evento en cuestión, para el ejemplo, si el usuario paso por Producto, la columna tendrá un 1, caso contrario un 0. 
 
 
+Remanentes a ver:
 - user_in_Landing
-
-
-
-### Conjunto 3: Sesiones por Landing Page
-- Sesiones_Landing_Producto
-- Sesiones_Landing_Listing
-- Sesiones_Landing_Home
 - user_landing_in_Landing
-- Sesiones_Landing_Otro
-- Sesiones_Landing_Carrito
-- Sesiones_Landing_Login
-- Sesiones_Landing_Mi_Cuenta
-- Sesiones_Landing_Order
-- Sesiones_Landing_Payment
-- Sesiones_Landing_Shipping
-- Sesiones_Landing_Email
 
-### Conjunto 4: Sesiones por Rebote
-- Sesiones_Rebote_Producto
-- Sesiones_Rebote_Listing
-- Sesiones_Rebote_Home
-- Sesiones_Rebote_Otro
-- Sesiones_Rebote_Carrito
-- Sesiones_Rebote_Login
-- Sesiones_Rebote_Mi_Cuenta
-- Sesiones_Rebote_Order
-- Sesiones_Rebote_Payment
-- Sesiones_Rebote_Shipping
-- Sesiones_Rebote_Email
-- Landing_Bound
-### Conjunto 5: Ordenes por Landing Page
-- Ordenes_Landing_Producto
-- Ordenes_Landing_Listing
-- Ordenes_Landing_Home
+
+
+### Conjunto 4: Sesiones por Landing Page
+
+- Sesiones_Landing_ACCIÓN : Tendremos una sesion landing por cada accion, por ejemplo, Sesiones_Landing_Producto, en este caso es un entero que en caso de que la sesion haya aterrizado en Producto, tendrá 1, caso contrario 0. 
+
+### Conjunto 5: Sesiones por Rebote
+
+- Sesiones_Rebote_ACCIÓN: En este caso, para cada una de las acciones en el primer paso, se mira si en el siguiente paso hubo o no una acción (si la persona abandonó la sesión) en caso de que la haya abandonado, se le pone un 1, caso contrario 0. 
+
+
 - Landing_purchased
-- Ordenes_Landing_Otro
-- Ordenes_Landing_Carrito
-- Ordenes_Landing_Login
-- Ordenes_Landing_Mi_Cuenta
-- Ordenes_Landing_Order
-- Ordenes_Landing_Payment
-- Ordenes_Landing_Shipping
-- Ordenes_Landing_Email
 
-### Conjunto 6: Métricas de Tiempo y Páginas Visitadas
-- Tiempo_Promedio
-- Tiempo_Total
-- Paginas_Visitadas
-- Paginas_Visitadas_Producto
-- Paginas_Visitadas_Listing
-- Paginas_Visitadas_Home
-- Paginas_Visitadas_Landing
-- Paginas_Visitadas_Otro
-- Paginas_Visitadas_Carrito
-- Paginas_Visitadas_Login
-- Paginas_Visitadas_Mi_Cuenta
-- Paginas_Visitadas_Order
-- Paginas_Visitadas_Payment
-- Paginas_Visitadas_Shipping
-- Paginas_Visitadas_Email
+### Conjunto 6: Ordenes por Landing Page
 
-### Conjunto 7: Otros
-- fecha
+- Ordenes_Landing_ACCIÓN: Para cada una de las acciones, si el usuario aterrizó en alguna acción en particular, la columna Ordenes_Landing_ACCIÓN tendra 1 si el usuario realizo una orden y 0 en caso contrario. 
+
+### Conjunto 7: Métricas de Tiempo 
+
+
+- **fecha** : Fecha en que fue generado el evento
+- **Tiempo_Promedio** : Tiempo promedio de la sesion, dado que tracker no monitorea el tiempo de permanencia en cada sitio, lo unico que podemos obtener son los tiempos entre eventos, si el tiempo es cero, indica que el cliente entro y salio, ya que no tuvo un evento posterior con el cual contrastar. 
+- **Tiempo_Total**: Suma de los tiempos entre eventos para cada sesión, padece el problema analogo al del item anterior, nuevamente en caso de tener un cero estamos frente a un cliente que rebotó en la primer interacción.
+
+
+### Conjunto 8:  Páginas Visitadas
+- Paginas_Visitadas: 
+
+- Paginas_Visitadas_ACCIÓN: Muestra el total de paginas visitadas abierto por cada una de las acciones en el Paso1, caso contrario 0. 
+
+
+### Conjunto 6: Otros
+
 - cookie_id
 - Cantidad_de_Add_to_Cart
 - Cantidad_de_Remove_to_Cart
