@@ -13,8 +13,8 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  // url: 'https://fravedocusdev.netlify.app/',
-  url: 'http://192.168.0.46:3000',
+  url: 'https://fravedocusdev.netlify.app/',
+  // url: 'http://192.168.0.46:3000',
 
 
 
