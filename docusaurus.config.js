@@ -13,15 +13,19 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://fravedocusdev.netlify.app/',
+  // url: 'http://192.168.0.46:3000',
+
+
+
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+  baseUrl: 'https://fravedocusdev.netlify.app/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Fravega', // Usually your GitHub org/user name.
+  projectName: 'classic', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -70,6 +74,24 @@ const config = {
 
 
     ({
+      algolia: {
+              // La configuración de Algolia va aquí
+              appId: 'BNTCJ45XUO',
+              apiKey: '866de7dc540f390c03b1874cabb66036',
+              indexName: 'fraveusdev',
+              contextualSearch: true,
+              externalUrlRegex: 'external\\.com|domain\\.com',
+              replaceSearchResultPathname: {
+                from: '/docs/',
+                to: '/',
+              },
+              searchParameters: {},
+              searchPagePath: 'search',
+              debug: false,
+            },
+
+
+
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       navbar: {
@@ -149,8 +171,34 @@ const config = {
         darkTheme: prismThemes.dracula,
       },
     }),
-
+  
 };
+
+// module.exports = {
+//   // Otras configuraciones de Docusaurus...
+
+//   customFields: {
+//     algolia: {
+//       // La configuración de Algolia va aquí
+//       appId: 'BNTCJ45XUO',
+//       apiKey: '866de7dc540f390c03b1874cabb66036',
+//       indexName: 'fraveusdev',
+//       contextualSearch: true,
+//       externalUrlRegex: 'external\\.com|domain\\.com',
+//       replaceSearchResultPathname: {
+//         from: '/docs/',
+//         to: '/',
+//       },
+//       searchParameters: {},
+//       searchPagePath: 'search',
+//       debug: false,
+//     },
+//   },
+// };
+
+
 
 
 export default config;
+
+
