@@ -11,20 +11,25 @@ La segmentación es una herramienta fundamental en el análisis de datos, ya que
 lorem ipsum
 
 
-**Veamos una foto de nachito**
+**Estado del cliente**
 
-![Nachito](./img/nachito.png)
-
-
-![el nacho 2](./img/nachito.png)
-
--  **¿Quién es?** Nacho
--  **Edad** 28 años
--  **Ocupación** Estudiante universitario en Datos y Fisica
-    -  **Intereses** Le gusta mucho  el deporte, practicar Kendo o leer un buen libro
-    -  **Hábitat** Se encuentra en la planicie de Buenos aires
+Definido por el estado de sus créditos
 
 ``` python
-def quien_es(nombre):
-    return (print('Nachito'))
+# Define una función para determinar el estado de los clientes
+def determinar_estado_cliente(estado):
+    if any(estado == 2):
+        return 'Incobrable'
+    elif any(estado == 3):
+        return 'Legales'
+    elif any(estado.isin([1, 6, 7])):
+        return 'Activo'
+    elif any(estado == 4):
+        return 'Inactivo'
+    else:
+        print(estado)
+        return "Error"
+
+# Agrupar por número de cliente y aplicar la función de estado
+df["ESTADO"] = df.groupby('CLIENTE_SK')['ESTADO_SK'].transform(determinar_estado_cliente)
 ```
