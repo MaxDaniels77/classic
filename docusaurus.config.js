@@ -77,7 +77,7 @@ const config = {
       algolia: {
               // La configuración de Algolia va aquí
               appId: 'BNTCJ45XUO',
-              apiKey: '866de7dc540f390c03b1874cabb66036',
+              apiKey: '64bac459e96146f27e8c9731989b0429',
               indexName: 'fraveusdev',
               contextualSearch: true,
               externalUrlRegex: 'external\\.com|domain\\.com',
