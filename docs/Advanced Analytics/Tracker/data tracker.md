@@ -75,7 +75,86 @@ Dicha libreria busca obtener de manera arbitraria un subset relevante para el an
 
 ## Procesado de los datos
 
-Acá va la descripción de como se preprocesaron los datos
+A partir de la data generada a con el data extractor se obtiene un dataframe con las columnas previamente comentadas. Sobre ellas se realizan una serie de pasos de preprocesado que se comentarán a continuación:
+
+- **Filtrado de bots**: Para tener información lo mas precisa posible sobre  el tráfico real del sitio web, se implemento lo comentado en etapas anteriores en los siguientes 2 items:
+  - **Filtrado de device=Spider**: En general  las visitas realizadas por spiders no son relevantes para el análisis del comportamiento, ya que suele ser el user agent de los bots. Teniendo esto en mente se filtraron las observaciones provenientes de ese dispositivo.
+  - **Filtrado de sesiones con muchas acciones**: En muchos casos, sucedio que habia sesiones extremadamente largas que dificilmente provengan de un comportamiento real de busqueda. Por este motivo se realizó un filtrado automatico de las sesiones que estan mas allá del percentil 0.999. 
+- **Conversion de las variables temporales**: A las variables temporales que de tracker son tomadas como un timestamp con UTC0, se las llevo a formato fecha con GMT-3 hora Argetina. 
+- **Corrección a los datos debido a un problema del tracker**
+  - **Eventos duplicados**: Durante la investigación, se descubrio que habian observaciones duplicadas en ciertas ocaciones determinadas en el evento PageView. Se halló una manera de sanear puntualmente dicho problema, recurriendo a los tiempos entre eventos para asumir que eran duplicados. Posteriormente se translado el problema a las personas encargadas del tracker por lo que actualmente se encuentra solucionado. Si bien a partir de la fecha de solución el problema quedo solucionado en tracker, la corrección debe permanecer en el codigo para todas las observaciones previas.
+  - **Sesiones activas por demasiado tiempo**: Idealmente el tiempo maximo en que una sesión debe permanecer activa sin actividad es media hora, sin embargo esto no siempre ocurria adecuadamente, por este motivo se renombraron como nuevas sesiones (junto a todas las acciones posteriores) a todas aquellas en las que la diferencia entre alguno de los eventos sea mayor o igual a media hora. Con esto, los tiempos entre eventos pasaron a ser los intuitivamente esperados.
+
+- **Parseo de referral**: A todas las url referral se las parseo de manera de ser facilmente comprensibles, ya sea desde el punto de vista de los dominios de origen, como Google o Instagram, asi como tambien los dominios internos de la web como los productos, o los listados. La lista final es la siguiente:
+  - Producto
+  - Landing
+  - Home
+  - Listing
+  - Carrito
+  - Checkout
+  - Mi Cuenta
+  - Login
+  - Order
+  - Comparar
+  - Facebook
+  - Instagram
+  - Google
+  - Bing
+  - YouTube
+  - Yahoo
+  - Otro (engloba al resto de las url que escapan de las anteriores)
+- **Parseo de base_url**: A todos los base_url se los parseo de una manera análoga a la de los `referral` de manera que la lista final fue:
+  - Home
+  - Listing
+  - Carrito
+  - Checkout
+  - Producto
+  - Order
+  - Landing
+  - Mi Cuenta
+  - Payment
+  - Email
+  - Shipping
+  - Login
+  - Otro (engloba al resto de las url que escapan de las anteriores)
+
+### Descripción general de la generación de la tabla:
+
+En aspectos generales podemos, sin perder generalidad decir que la generacion de la tabla final se rige por los siguientes items:
+
+1. **Cálculo de métricas temporales**: Se calcula el tiempo promedio y total de eventos para cada índice, lo cual proporciona información valiosa sobre el comportamiento temporal de los usuarios en el sitio web.
+
+2. **Agrupación de cookies por sesión**: Se agrupan las cookies por sesión para facilitar el seguimiento del comportamiento de los usuarios a lo largo de su interacción con el sitio.
+
+3. **Conteo de pageviews por sesión**: Se cuenta el número total de pageviews por sesión, lo que ayuda a entender la actividad general de los usuarios en el sitio.
+
+4. **Creación de columnas de orden**: Se agrega una columna que representa el orden dentro de cada grupo, lo que permite entender la secuencia de eventos para cada sesión de usuario.
+
+5. **Selección de pasos iniciales**: Se seleccionan solo los primeros 'pasos' elementos de cada grupo, lo que limita el análisis a los primeros pasos del funnel web.
+
+6. **Pivotaje de datos**: Utiliza la función `unstack()` para pivotar la tabla y convertir los valores de 'orden' en columnas, lo que facilita el análisis posterior de los eventos.
+
+7. **Renombrado de columnas**: Se renombran las columnas de manera significativa y se agrega una columna con el flag de valor nulo, lo que mejora la legibilidad y la comprensión del DataFrame resultante.
+
+8. **Concatenación de columnas de 'step'**: Se concatenan las columnas de 'step' para facilitar el análisis de la secuencia de eventos para cada sesión de usuario.
+
+9. **Creación de indicadores binarios**: Se iteran sobre los eventos únicos y se crean columnas de indicadores binarios para verificar la presencia de cada evento en las etapas de navegación, lo que permite identificar patrones de comportamiento específicos.
+
+10. **Cálculo de tiempos promedios y totales**: Se calculan los tiempos promedios y totales de eventos, considerando solo aquellos eventos distintos de cero, lo que proporciona información sobre la eficiencia y la duración de cada etapa del funnel web.
+
+11. **Agregación de información adicional**: Se agrega información adicional, como la fecha de inicio de la sesión, el número de eventos de diferentes tipos y características de los usuarios, lo que enriquece el análisis del funnel web.
+
+12. **Imputación de valores faltantes**: Se realizan imputaciones de valores faltantes si es necesario, lo que garantiza la integridad de los datos y la fiabilidad del análisis.
+
+13. **Modificación de nombres de columnas**: Se modifican los nombres de las columnas para hacerlos más descriptivos y claros, lo que facilita la interpretación de los resultados del análisis.
+
+14. **Retorno del DataFrame transformado**: Finalmente, se devuelve el DataFrame transformado, listo para su uso en el análisis del funnel web.
+
+Este proceso proporciona una base sólida para entender el comportamiento de los usuarios en el sitio web y optimizar el funnel web para mejorar la conversión y la experiencia del usuario. En la siguiente sección se hará una descriptiva de las columnas finales del dataset.
+
+
+
+
 
 
 
@@ -176,4 +255,14 @@ Remanentes a ver:
 - **Categoria_Frecuente**: De todas las categorias que el cliente miró haciendo `DetailView`, se releva la mas frecuente. 
 - **Tipo_Trafico**:  Indica si es trafico orgánico o no.  1 para si 0 para no. 
 
+### Subida a BigQuery
 
+
+La subida se realiza de manera automatizada, la generación del esquema, con los nombres de las columnas en BigQuery y los tipos de datos se automatizó reduciendo un complejo problema de hacerse manualmente a una opeación de unos pocos microsegundos. En el codigo se disponibilizan 3 celdas claramente separadas:
+- Una que genera tanto el dataframe, como la tabla en BigQuery. 
+- Otra que borra la tabla (para los casos en los que tenemos datos previos y no se agregaron nuevas columnas, o modifico el esquema general)
+- Y finalmente un script de subida de datos. 
+
+
+
+Dicha tabla es levantada posteriormente en Microstrategy y todas las metricas y cruces son graficados en un cubo.
