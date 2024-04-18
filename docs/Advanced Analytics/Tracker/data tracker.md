@@ -265,4 +265,7 @@ La subida se realiza de manera automatizada, la generación del esquema, con los
 
 
 
-Dicha tabla es levantada posteriormente en Microstrategy y todas las metricas y cruces son graficados en un cubo.
+Dicha tabla es levantada posteriormente en Microstrategy y todas las metricas y cruces son graficados en un cubo. 
+
+## Metricas en Microstrategy
+info sobre las metricas
