@@ -158,6 +158,34 @@ Lo primero es una
 `};`
 `</script>`
 ```
-## Ventanas de tiempo
+# Limpieza de contactos antiguos
 
-6 meses
+
+En este proceso, el objetivo era eliminar contactos inactivos durante los últimos años, priorizando la obtención de dos datos específicos: la fecha de registro del usuario en Salesforce y la fecha del último correo electrónico abierto. La intención era eliminar los correos electrónicos de los usuarios que no habían realizado compras recientemente.
+
+Dada la urgencia de esta solicitud, especialmente debido a las negociaciones en Salesforce, decidimos utilizar parte de la información disponible en la data extension de_all_contacts_v2, la cual fue generada hace varios años por Julian Alonso. Aunque inicialmente podríamos haber obtenido la información necesaria a través de consultas a las tablas _Subscribers y _Open, nos encontramos con el problema de que las querys sobre la tabla _Open solo referencian a los ultimos 6 meses por lo que la consistencia de la información se encontraba bastante comprometida. Por otro lado, la automation que genera dicha tabla aparentemente estuvo detenida un tiempo no determinado (fue desarrollada como una automation de ejecución diaria) con lo cual no toda la información habia sido capturada de manera efectiva y en la columna que referencia a la fecha del ultimo mail abierto no poseiamos toda la informacion (solo los años 2023 y 2024).
+
+Por lo tanto se optó por el siguiente approach haciendo uso de la tabla `EBA.CLIENTES_MES_TIPO_CANAL_CATEGORIA_DTL` la cual captura información de las compras de los clientes, en particular de las fechas que es la data que nos importa. Esta tabla se joinea con la tabla `EDW.DM_CLIENTES` con el objetivo de obtener los emails. La query utilizada para dicho fin es la siguiente:
+```SQL
+select s.*,c.mail,c.nro_doc from
+(SELECT cliente_sk, fecha_dia, recurrencia_sk, canal_cliente_sk, tipo_rubro_sk, unidades_24m, comprobantes_24m
+FROM (
+    SELECT cliente_sk, fecha_dia, recurrencia_sk, canal_cliente_sk, tipo_rubro_sk, unidades_24m, comprobantes_24m,
+           ROW_NUMBER() OVER (PARTITION BY cliente_sk ORDER BY fecha_dia DESC) AS rn
+    FROM EBA.CLIENTES_MES_TIPO_CANAL_CATEGORIA_DTL
+)
+WHERE rn = 1) s
+left join edw.dm_clientes c on s.cliente_sk=c.cliente_sk
+```
+
+por otro lado, retirar la data de salesforce no es un proceso sensillo ya que desde el front end no se puede ni depositar ni sacar .csv de mas de 20Mb por lo que se desarrollaron 2 scripts, uno de subida y uno de bajada (Se podrian unificar en uno con algo de tiempo) que a partir de la gestion de credenciales en la pagina de marketing cloud, permiten tanto subir, como descargar informacion. 
+
+Para descargar la informacion, se debe exportar la data extension `de_all_contacts_v2`, como se comento previamente no se puede descargar directamente asi que debe ser enviada al ftp. La carpeta donde se recibe es en `/Exports` a partir del script, se puede revisar que archivos hay disponibles, seleccionar el adecuado y descargarlo. 
+:::tip
+Se insta a usar el script ya que si bien hay herramientas con un front end mas agradable, tienen limite de tiempo o de velocidad de descarga por lo tanto puede darse el caso de que se cierre la sesion por tiempo y el archivo que es pesado no se descargue o que bien tarde demasiado en ser descargado.
+:::
+Una vez descargado el set de datos de salesforce, se apreció el problema de que o bien se enviaban mails con suscriberKey          
+
+
+![alt text](./img/image.png)
+
