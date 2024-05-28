@@ -87,6 +87,22 @@ cliente de consumo, efectivo o ambos según todos los créditos.
 + `ARTICULO_ULT_CPRA_2`: Segundo articulo más caro comprado si compró más de uno.
 
 
+## Definiciones
+
+### Estado Renovador
+
++ 1 **Nuevo**: Sacó un crédito este mes y es su primer crédito
++ 2 **Ampliador**: Sacó un crédito este mes y tenia uno activo
++ 3 **Renovador**: Sacó un crédito este mes y era Potencial Renovador el mes anterior
++ 4 **Perdido**: Es inactivo este mes y el mes anterior era activo
++ 5 **Recuperado**: Sacó un nuevo crédito este mes y el mes anterior era A recuperar
++ 6 **Potencial Renovador**: Está en su última cuota o pagó la última cuota hace menos de un mes
++ 7 **Potencial Ampliador**: Tiene créditos activos y puede sacar uno nuevo
++ 8 **No Renovable**: Tiene créditos activos y no puede sacar uno nuevo
++ 9 **A recuperar**: Es inactivo y el mes pasado era inactivo
+
+
+
 ## Análisis exploratorio
 
 ## Modelo de segmentación
